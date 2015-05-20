@@ -6,6 +6,7 @@ require_once("php/controller/create-db.php");
     <head>
         <title>Gump: First Strike</title>
         <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+        <link rel="shortcut icon" href="http://www.halopedia.org/images/0/05/Marathon_logo.jpg">
         <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="mobile-web-app-capable" content="yes">
@@ -20,21 +21,26 @@ require_once("php/controller/create-db.php");
     </head>
     <body>
 </html>
+<div id="screen"></div>
 
-<div class="jumbotron" id="JumboInd">
-    <h1>Hello Internet!</h1>
-    <p>This is JayBlog, the latest project<br>
-        in the App Academy!</p>
-    <p><a class="btn btn-primary btn-lg" href="Index - PvIII.html" role="button">Learn more</a></p>
-    <ul class="nav nav-pills">
-        <li role="presentation"><a href="Register.php">Register</a></li>
-        <li role="presentation" id="current-link" class="active"><a href="Index.php">Home</a></li>
-        <li role="presentation"><a href="Login.php">Sign In</a></li>
-    </ul>
-</div>
- 
+<form id="input" method="post">
+    <div class="field">
+        <label for="username"Username></label>
+        <input type='text' name='username' id='username' autocomplete="off">      
+    </div>
+
+    <div class='password'>
+        <label for='passsword'>Password</label>
+        <input type='password' name='password' id='password'>
+    </div>
+
+    <button type='button' id='register'>Register</button>
+    <button type='button' id='load'>Load</button>
+    <button type='button' id='mainmenu'>Main Menu</button>
+
+</form>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 
 <!-- melonJS Library -->
 <!-- build:js js/app.min.js -->
@@ -46,7 +52,6 @@ require_once("php/controller/create-db.php");
 <!-- Game Scripts -->
 <script type="text/javascript" src="js/game.js"></script>
 <script type="text/javascript" src="js/resources.js"></script>
-
 <script type="text/javascript" src="js/entities/entities.js"></script>
 <script type="text/javascript" src="js/entities/EnemyBaseEntity.js"></script>
 <script type="text/javascript" src="js/entities/PlayerBaseEntity.js"></script>
@@ -60,27 +65,25 @@ require_once("php/controller/create-db.php");
 <script type="text/javascript" src="js/screens/title.js"></script>
 <script type="text/javascript" src="js/screens/play.js"></script>
 <script type="text/javascript" src="js/screens/spendExp.js"></script>
-
 <script type="text/javascript" src="js/screens/loadProfile.js"></script>
 <script type="text/javascript" src="js/screens/newProfile.js"></script>
 
-
-<!-- /build -->
-<!-- Bootstrap & Mobile optimization tricks -->
 <script type="text/javascript">
             window.onReady(function onReady() {
             game.onload();
 
                 // Mobile browser hacks                 if (me.device.isMobile && !navigator.isCocoonJS) {
         // Prevent the webview from moving on a swipe
-                    window.document.addEventListener("touchmo ve", function(e) {
-                        e .preventDefault();
-                    window.scroll(0, 0);
+                    if (me.device.isMobile && !navigator.isCocoonJS) {
+                    // Prevent the webview from moving on a swipe
+                    window.document.addEventListener("touchmove", function(e) {
+                        e.preventDefault();
+                        window.scroll(0, 0);
                         return false;
                     }, false);
 
                 // Scroll away mobile GUI
-                    (functi on() {
+                    (function() {
                 window.scrollTo(0, 1);
     me.video.onresize(null);
             }).defer();
@@ -88,15 +91,15 @@ require_once("php/controller/create-db.php");
             me.event.subscribe(me.event.WINDOW_ONRESIZE, function(e) {
                 window.scrollTo(0, 1);
             });
-                }
-    });
+                }             
+            });
 </script>
 
 <script>
         $("#mainmenu").bind("click", function(){
                 me.state.change(me.state.MENU);
                     });
-$("#r egister").bin d("click", function(){
+$("#register").bind("click", function(){
                         console.log("registering");
 $.ajax({
                     type: "POST",
@@ -146,8 +149,7 @@ $("#load").bind("click", function(){
         .fail(function(response){
             alert("Fail");
         });
-});
-      
+});   
 </script>
 </body>
 </html>
