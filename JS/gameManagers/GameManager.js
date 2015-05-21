@@ -39,7 +39,7 @@ game.ExperienceManager = Object.extend({
                         me.state.change(me.state.PLAY);
                     }
                 })
-                .fail(function(respontse) {
+                .fail(function(response) {
                     alert("Fail");
                 });
 
